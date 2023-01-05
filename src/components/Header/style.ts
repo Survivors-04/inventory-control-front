@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledHeader = styled.header`
   display: flex;
   justify-content: center;
-  background-color: #1c1c1c;
+  background-color: #15222c;
 
   img {
     padding: 1em;
