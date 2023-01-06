@@ -79,7 +79,7 @@ export const StyledUl = styled.ul`
 `;
 
 export const StyledDiv = styled.div`
-  background-color: #212529;
+  background-color: #15222c;
   border-radius: 5px;
 
   button {
@@ -90,19 +90,19 @@ export const StyledDiv = styled.div`
     display: flex;
     justify-content: space-around;
     gap: 80px;
-    background: #aab5bf;
+    background: #f1cf32;
     border-radius: 5px 5px 0px 0px;
     padding: 10px;
     align-items: center;
     p {
-      color: #ffffff;
+      color: #15222c;
       font-size: 15px;
       font-weight: bold;
     }
     button {
       border: none;
-      color: #ffffff;
-      background: #aab5bf;
+      color: #15222c;
+      background: #f1cf32;
       border-radius: 5px;
     }
   }
@@ -154,8 +154,8 @@ export const StyledForm = styled.form`
     color: #f8f9fa;
   }
   button {
-    background-color: #4a4afc;
-    color: #ffffff;
+    background-color: #f1cf32;
+    color: #15222c;
     border: none;
     border-radius: 5px;
     font-size: 15px;
