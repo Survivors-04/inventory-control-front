@@ -105,19 +105,35 @@ const Main = ({ formSubmit }: IForm) => {
 
             <StyledForm onSubmit={handleSubmit(formSubmit)}>
               <label htmlFor="input">Nome</label>
-              <input type="text" {...register("name")} />
+              <input
+                type="text"
+                {...register("name")}
+                placeholder="Digite o nome do produto"
+              />
               <span>{errors.name?.message}</span>
 
               <label htmlFor="description">Descrição</label>
-              <input type="text" {...register("description")} />
+              <input
+                type="text"
+                {...register("description")}
+                placeholder="Digite a descrição"
+              />
               <span>{errors.description?.message}</span>
 
               <label htmlFor="price">Preço</label>
-              <input type="number" {...register("price")} />
+              <input
+                type="text"
+                {...register("price")}
+                placeholder="Digite o preço"
+              />
               <span>{errors.price?.message}</span>
 
               <label htmlFor="amount">Amount</label>
-              <input type="number" {...register("amount")} />
+              <input
+                type="text"
+                {...register("amount")}
+                placeholder="Digite o amount"
+              />
               <span>{errors.amount?.message}</span>
 
               <label htmlFor="select">Selecionar Categoria</label>
