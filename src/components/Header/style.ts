@@ -23,10 +23,12 @@ export const StyledHeader = styled.header<IPropsStyledHeader>`
   }
   img {
     width: 70%;
+    max-width: 200px;
   }
 
   img:nth-child(2) {
     width: 18%;
+    max-width: 48px;
   }
 
   svg {
