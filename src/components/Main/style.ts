@@ -54,11 +54,32 @@ export const StyledUl = styled.ul`
 
     input {
       width: 50%;
-      border-radius: 10px;
-      padding: 10px;
-      height: 25px;
-      border: none;
-      font-size: 13px;
+      height: 30px;
+      border: 2px solid transparent;
+      outline: none;
+      border-bottom: 2px solid #3f3f3f;
+      caret-color: #3f3f3f;
+      background-color: #15222c;
+      padding: 5px;
+      transition: 0.5s linear;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    input:focus {
+      border: 2px solid #f1cf32;
+      caret-color: #f1cf32;
+      color: #f1cf32;
+      box-shadow: 4px 4px 10px #070707;
+    }
+
+    input::placeholder {
+      font-size: 12px;
+    }
+
+    input:focus::placeholder {
+      color: #f1cf32;
+      font-size: 12px;
     }
   }
 
@@ -68,6 +89,7 @@ export const StyledUl = styled.ul`
     flex-direction: column;
     gap: 10px;
     margin-top: 15px;
+    cursor: pointer;
     border-radius: 8px;
     background-color: #e9e9f7;
 
@@ -75,6 +97,10 @@ export const StyledUl = styled.ul`
       font-size: 13px;
       font-weight: bold;
     }
+  }
+
+  li:hover {
+    background-color: #f1cf32;
   }
 `;
 
@@ -130,15 +156,36 @@ export const StyledForm = styled.form`
     color: #f8f9fa;
     justify-content: left;
   }
+
   input {
-    border: none;
-    border: 1px solid #f8f9fa;
-    border-radius: 5px;
-    background-color: #343b41;
-    height: 20%;
+    height: 30px;
+    border: 2px solid transparent;
+    outline: none;
+    border-bottom: 2px solid #3f3f3f;
+    caret-color: #3f3f3f;
+    background-color: #15222c;
     padding: 5px;
-    color: #f8f9fa;
+    transition: 0.5s linear;
+    font-family: monospace;
+    letter-spacing: 1px;
   }
+
+  input:focus {
+    border: 2px solid #f1cf32;
+    caret-color: #f1cf32;
+    color: #f1cf32;
+    box-shadow: 4px 4px 10px #070707;
+  }
+
+  input::placeholder {
+    font-size: 12px;
+  }
+
+  input:focus::placeholder {
+    color: #f1cf32;
+    font-size: 12px;
+  }
+
   span {
     display: flex;
     justify-content: left;
@@ -146,9 +193,9 @@ export const StyledForm = styled.form`
     color: #f42626;
   }
   select {
-    border: 1px solid #f8f9fa;
+    border: 1px solid #f1cf32;
     border-radius: 5px;
-    background-color: #343b41;
+    background-color: #15222c;
     height: 20%;
     padding: 5px;
     color: #f8f9fa;
