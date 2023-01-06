@@ -1,7 +1,35 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { MdClose } from "react-icons/md";
 import robotLogo from "../../assets/imgs/bot.png";
-import { StyledMain, StyledUl } from "./style";
+import { productFormSchema } from "../../validations/productForm.validations";
+import ModalBase from "../ModalBase";
+import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
 
-const Main = () => {
+interface IForm {
+  formSubmit: SubmitHandler<FieldValues>;
+}
+
+interface SubmitFunction {
+  name?: string;
+  description?: string;
+  price?: string;
+  amount?: string;
+  category?: string;
+}
+
+const Main = ({ formSubmit }: IForm) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SubmitFunction>({
+    resolver: yupResolver(productFormSchema),
+  });
+
   const manager = {
     name: "Manager",
   };
@@ -45,7 +73,13 @@ const Main = () => {
         <div>
           <span>Produtos</span>
           <input type="text" placeholder="Pesquisar produto" />
-          <button>+</button>
+          <button
+            onClick={() => {
+              setIsOpenModal(true);
+            }}
+          >
+            +
+          </button>
         </div>
 
         {products.map((prod) => (
@@ -58,6 +92,46 @@ const Main = () => {
           </li>
         ))}
       </StyledUl>
+
+      {isOpenModal ? (
+        <ModalBase setIs={setIsOpenModal}>
+          <StyledDiv>
+            <div>
+              <p>Cadastrar Produto</p>
+              <button onClick={() => setIsOpenModal(false)}>
+                <MdClose />
+              </button>
+            </div>
+
+            <StyledForm onSubmit={handleSubmit(formSubmit)}>
+              <label htmlFor="input">Nome</label>
+              <input type="text" {...register("name")} />
+              <span>{errors.name?.message}</span>
+
+              <label htmlFor="description">Descrição</label>
+              <input type="text" {...register("description")} />
+              <span>{errors.description?.message}</span>
+
+              <label htmlFor="price">Preço</label>
+              <input type="number" {...register("price")} />
+              <span>{errors.price?.message}</span>
+
+              <label htmlFor="amount">Amount</label>
+              <input type="number" {...register("amount")} />
+              <span>{errors.amount?.message}</span>
+
+              <label htmlFor="select">Selecionar Categoria</label>
+              <select id="" {...register("category")}>
+                <option value="Iniciante">Camisetas</option>
+                <option value="Intermediário">Calças</option>
+                <option value="Avançado">Sapato</option>
+              </select>
+
+              <button>Cadastrar Produto</button>
+            </StyledForm>
+          </StyledDiv>
+        </ModalBase>
+      ) : null}
     </StyledMain>
   );
 };
