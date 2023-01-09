@@ -6,6 +6,10 @@ const Orders = () => {
     name: "Manager",
   };
 
+  const account = {
+    superUser: true,
+  };
+
   const products = [
     {
       order_id: 1,
@@ -57,6 +61,7 @@ const Orders = () => {
         <div>
           <span>Pedidos</span>
           <input type="text" placeholder="Pesquisar produto" />
+          {account.superUser ? null : <button onClick={() => {}}>+</button>}
         </div>
 
         {products.map((prod) => (
