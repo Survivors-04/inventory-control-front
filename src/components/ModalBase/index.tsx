@@ -8,6 +8,8 @@ export interface iModal {
   heigth?: string;
   justifyContent?: string;
   alignItems?: string;
+  justifyContentModal?: string;
+  alignItemsModal?: string;
 }
 
 export interface IEvent {
@@ -40,14 +42,11 @@ const ModalBase = ({
   }, [setIs]);
 
   return (
-    <StyledModalContainer>
-      <StyledModalBox
-        ref={modalRef}
-        width={width}
-        heigth={heigth}
-        justifyContent={justifyContent}
-        alignItems={alignItems}
-      >
+    <StyledModalContainer
+      alignItems={alignItems}
+      justifyContent={justifyContent}
+    >
+      <StyledModalBox ref={modalRef} width={width} heigth={heigth}>
         {children}
       </StyledModalBox>
     </StyledModalContainer>
