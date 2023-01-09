@@ -3,6 +3,7 @@ import Login from "../pages/Login";
 import DashboardAccount from "../pages/DashboardAccount";
 import OrdersAccount from "../pages/OrdersAccount";
 import ManagerViewPage from "../pages/Manager";
+import ManagerDashboard from "../pages/ManagerDashboard";
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -16,6 +17,7 @@ const MainRoutes = () => {
       />
       <Route path="/dashboard-account/orders" element={<OrdersAccount />} />
       <Route path="/dashboard-manager" element={<ManagerViewPage />} />
+      <Route path="/dashboard-manager/orders" element={<ManagerDashboard />} />
     </Routes>
   );
 };
