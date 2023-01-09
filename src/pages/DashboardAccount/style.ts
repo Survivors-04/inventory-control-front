@@ -202,6 +202,18 @@ export const StyledForm = styled.form`
     padding: 5px;
     color: #f8f9fa;
   }
+  button {
+    background-color: #f1cf32;
+    color: #15222c;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 5px;
+    height: 35px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
 `;
 
 export const StyledButton = styled.button`
