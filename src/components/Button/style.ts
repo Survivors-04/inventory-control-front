@@ -1,11 +1,6 @@
 import styled from "styled-components";
 
-interface IPropsStyleButton {
-  height?: string;
-  width?: string;
-}
-
-export const StyledButton = styled.button<IPropsStyleButton>`
+export const StyledButton = styled.button`
   padding: 10px 25px;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
