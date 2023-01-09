@@ -1,8 +1,40 @@
-import { StyledMain, StyledUl, StyledButton } from "./style";
+import {
+  StyledMain,
+  StyledUl,
+  StyledButton,
+  StyledDiv,
+  StyledForm,
+} from "./style";
 import Header from "../../components/Header";
 import robotLogo from "../../assets/imgs/bot.png";
+import { useState } from "react";
+import ModalBase from "../../components/ModalBase";
+import { MdClose } from "react-icons/md";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { requestFormSchema } from "../../validations/requestsForm.validations";
 
-const DashboardAccount = () => {
+interface IForm {
+  formSubmit: SubmitHandler<FieldValues>;
+}
+
+interface SubmitFunction {
+  id?: string;
+  qtd?: string;
+}
+
+const DashboardAccount = ({ formSubmit }: IForm) => {
+  const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
+  const [productId, setProductId] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SubmitFunction>({
+    resolver: yupResolver(requestFormSchema),
+  });
+
   const products = [
     {
       id: 1,
@@ -53,10 +85,47 @@ const DashboardAccount = () => {
               <span>Preço: {prod.price}</span>
               <span>Categoria: {prod.category}</span>
               <span>Registrado por: {prod.manager}</span>
-              <StyledButton>Fazer Pedido</StyledButton>
+              <StyledButton
+                onClick={() => {
+                  setProductId(prod.id);
+                  setIsOpenModalRequests(true);
+                }}
+              >
+                Fazer Pedido
+              </StyledButton>
             </li>
           ))}
         </StyledUl>
+
+        {isOpenModalRequests ? (
+          <ModalBase setIs={setIsOpenModalRequests}>
+            <StyledDiv>
+              <div>
+                <p>Dados do Pedido</p>
+                <button onClick={() => setIsOpenModalRequests(false)}>
+                  <MdClose />
+                </button>
+              </div>
+              <StyledForm onSubmit={handleSubmit(formSubmit)}>
+                <label htmlFor="input">Id do produto</label>
+                <input
+                  type="text"
+                  {...register("id")}
+                  placeholder={productId as unknown as string}
+                  disabled
+                />
+                <label htmlFor="description">Digite a Quantidade</label>
+                <input
+                  type="text"
+                  {...register("qtd")}
+                  placeholder="Digite a Quantidade"
+                />
+                <span>{errors.qtd?.message}</span>
+                <button>Enviar Pedido</button>
+              </StyledForm>
+            </StyledDiv>
+          </ModalBase>
+        ) : null}
       </StyledMain>
     </>
   );
