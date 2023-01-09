@@ -27,8 +27,20 @@ export const StyledForm = styled.form`
     padding: 7px;
     border: none;
     margin-top: 25px;
+    background-color: #f1cf32;
     font-size: 15px;
     font-weight: bold;
+    transition: all 0.3s ease;
+    outline: none !important;
+    display: inline-block;
+    border: 2px solid transparent;
+  }
+
+  button:hover {
+    background-color: #4745bf;
+    color: #f1cf32;
+    border: 2px solid transparent;
+    border-radius: 5%;
   }
 
   div {
