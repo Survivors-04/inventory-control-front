@@ -1,35 +1,7 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { MdClose } from "react-icons/md";
 import robotLogo from "../../assets/imgs/bot.png";
-import { productFormSchema } from "../../validations/productForm.validations";
-import ModalBase from "../ModalBase";
-import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
+import { StyledMain, StyledUl } from "./style";
 
-interface IForm {
-  formSubmit: SubmitHandler<FieldValues>;
-}
-
-interface SubmitFunction {
-  name?: string;
-  description?: string;
-  price?: string;
-  amount?: string;
-  category?: string;
-}
-
-const Orders = ({ formSubmit }: IForm) => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SubmitFunction>({
-    resolver: yupResolver(productFormSchema),
-  });
-
+const Orders = () => {
   const manager = {
     name: "Manager",
   };
@@ -45,7 +17,7 @@ const Orders = ({ formSubmit }: IForm) => {
       order_is_active: "Status",
       order_sent_at: "Data envio",
       order_is_sent: "Enviado",
-      order_name_dispatcher: "Enviado por"
+      order_name_dispatcher: "Enviado por",
     },
     {
       order_id: 2,
@@ -57,8 +29,7 @@ const Orders = ({ formSubmit }: IForm) => {
       order_is_active: "Status2",
       order_sent_at: "Data envio2",
       order_is_sent: "Enviado2",
-      order_name_dispatcher: "Enviado por2"
-    
+      order_name_dispatcher: "Enviado por2",
     },
     {
       order_id: 3,
@@ -70,8 +41,7 @@ const Orders = ({ formSubmit }: IForm) => {
       order_is_active: "Status3",
       order_sent_at: "Data envio3",
       order_is_sent: "Enviado3",
-      order_name_dispatcher: "Enviado por"
-    
+      order_name_dispatcher: "Enviado por",
     },
   ];
 
@@ -87,13 +57,6 @@ const Orders = ({ formSubmit }: IForm) => {
         <div>
           <span>Pedidos</span>
           <input type="text" placeholder="Pesquisar produto" />
-          {/* <button
-            onClick={() => {
-              setIsOpenModal(true);
-            }}
-          >
-            +
-          </button> */}
         </div>
 
         {products.map((prod) => (
@@ -107,66 +70,9 @@ const Orders = ({ formSubmit }: IForm) => {
             <span>Data envio: {prod.order_sent_at}</span>
             <span>Enviado {prod.order_is_sent}</span>
             <span>Enviado por {prod.order_name_dispatcher}</span>
-
           </li>
         ))}
       </StyledUl>
-
-      {/* {isOpenModal ? (
-        <ModalBase setIs={setIsOpenModal}>
-          <StyledDiv>
-            <div>
-              <p>Cadastrar Produto</p>
-              <button onClick={() => setIsOpenModal(false)}>
-                <MdClose />
-              </button>
-            </div>
-
-            <StyledForm onSubmit={handleSubmit(formSubmit)}>
-              <label htmlFor="input">Nome</label>
-              <input
-                type="text"
-                {...register("name")}
-                placeholder="Digite o nome do produto"
-              />
-              <span>{errors.name?.message}</span>
-
-              <label htmlFor="description">Descrição</label>
-              <input
-                type="text"
-                {...register("description")}
-                placeholder="Digite a descrição"
-              />
-              <span>{errors.description?.message}</span>
-
-              <label htmlFor="price">Preço</label>
-              <input
-                type="text"
-                {...register("price")}
-                placeholder="Digite o preço"
-              />
-              <span>{errors.price?.message}</span>
-
-              <label htmlFor="amount">Amount</label>
-              <input
-                type="text"
-                {...register("amount")}
-                placeholder="Digite o amount"
-              />
-              <span>{errors.amount?.message}</span>
-
-              <label htmlFor="select">Selecionar Categoria</label>
-              <select id="" {...register("category")}>
-                <option value="Iniciante">Camisetas</option>
-                <option value="Intermediário">Calças</option>
-                <option value="Avançado">Sapato</option>
-              </select>
-
-              <button>Cadastrar Produto</button>
-            </StyledForm>
-          </StyledDiv>
-        </ModalBase>
-      ) : null} */}
     </StyledMain>
   );
 };
