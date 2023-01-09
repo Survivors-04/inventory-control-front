@@ -6,7 +6,7 @@ const OrdersAccount = () => {
   return (
     <Container>
       <Header />
-      <Orders formSubmit={() => {}} />
+      <Orders />
     </Container>
   );
 };
