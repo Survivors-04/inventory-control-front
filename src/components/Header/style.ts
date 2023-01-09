@@ -14,13 +14,6 @@ export const StyledHeader = styled.header<IPropsStyledHeader>`
   height: 100%;
   max-width: 1500px;
 
-  div:nth-child(1) {
-    width: 80%;
-    max-width: 367px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
   img {
     width: 70%;
     max-width: 200px;
@@ -49,6 +42,11 @@ export const StyledHeader = styled.header<IPropsStyledHeader>`
 
   a {
     color: #f1cf32;
+    transition: 0.3s;
+  }
+
+  a:hover {
+    color: #4745bf;
   }
 
   @media (min-width: 950px) {
@@ -75,16 +73,6 @@ export const StyledHeader = styled.header<IPropsStyledHeader>`
       font-size: 1.1em;
     }
   }
-
-  /* @media (min-width: 1024px) {
-    img {
-      width: 15em;
-    }
-
-    div {
-      display: flex;
-    }
-  } */
 `;
 
 export const ContainerHeader = styled.div`
@@ -96,13 +84,31 @@ export const ContainerHeader = styled.div`
   justify-content: center;
 `;
 
+export const StyleLogoHeader = styled.div`
+  width: 80%;
+  max-width: 367px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
 export const ModalHeaderStyled = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: #15222c;
 
-  display: block;
+  display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
+
+  font-size: 18px;
+
+  a {
+    margin-bottom: 10%;
+  }
+
+  a:nth-child(1) {
+    margin-top: 10%;
+  }
 `;

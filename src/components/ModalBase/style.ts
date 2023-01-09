@@ -7,12 +7,13 @@ interface IPropsModalBase {
   alignItems?: string;
 }
 
-export const StyledModalContainer = styled.div`
+export const StyledModalContainer = styled.div<IPropsModalBase>`
   position: fixed;
 
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+  justify-content: ${(props) =>
+    props.justifyContent ? props.justifyContent : "center"};
   flex-direction: column;
 
   width: 100%;
@@ -26,9 +27,8 @@ export const StyledModalBox = styled.div<IPropsModalBase>`
   width: ${(props) => (props.width ? props.width : "auto")};
   height: ${(props) => (props.heigth ? props.heigth : "auto")};
   display: flex;
-  justify-content: ${(props) =>
-    props.justifyContent ? props.justifyContent : "center"};
-  align-items: ${(props) => (props.alignItems ? props.alignItems : "center")};
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
   position: relative;
 `;

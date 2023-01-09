@@ -219,47 +219,22 @@ export const StyledForm = styled.form`
 export const StyledButton = styled.button`
   max-width: 150px;
   padding: 10px 25px;
-  font-family: "Roboto", sans-serif;
   font-weight: 600;
   font-size: 15px;
   background: transparent;
   outline: none !important;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
   display: inline-block;
 
   border: 2px solid transparent;
-  z-index: 1;
-  background-color: #f1cf32;
-  color: #15222c;
+  background-color: #15222c;
+  color: #f1cf32;
   border-radius: 5%;
 
-  :after {
-    position: absolute;
-    content: "";
-    width: 100%;
-    height: 0;
-    bottom: 0;
-    left: 0;
-    z-index: -1;
-    background: #15222c;
-    transition: all 0.3s ease;
-  }
-
   :hover {
+    background-color: #4745bf;
     color: #f1cf32;
     border-radius: 5%;
-  }
-
-  :hover:after {
-    top: 0;
-    height: 100%;
-    background-color: #15222c;
-    border-radius: 5%;
-  }
-
-  :active {
-    top: 2px;
   }
 `;
