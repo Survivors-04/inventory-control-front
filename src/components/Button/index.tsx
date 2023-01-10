@@ -3,10 +3,11 @@ import { StyledButton } from "./style";
 
 interface IButton {
   children: React.ReactNode;
+  onClick?: () => void;
 }
 
-const Button = ({ children }: IButton) => {
-  return <StyledButton>{children}</StyledButton>;
+const Button = ({ children, onClick }: IButton) => {
+  return <StyledButton onClick={onClick}>{children}</StyledButton>;
 };
 
 export default Button;
