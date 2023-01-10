@@ -6,16 +6,26 @@ import {
 } from "./style";
 import logoHeader from "../../../src/assets/imgs/Inventory control.png";
 import logoCaixaHeader from "../../../src/assets/imgs/caixa.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../Button";
 import ModalBase from "../ModalBase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { motion } from "framer-motion";
+import { UserContext } from "../../context/UserContext";
 
 const Header = () => {
-  const [isLogged] = useState(true);
+  const navigate = useNavigate();
+  const { isLogged, setIsLogged } = useContext(UserContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const logout = () => {
+    localStorage.clear();
+
+    setIsLogged(false);
+    navigate("/", { replace: true });
+  };
+
   return (
     <ContainerHeader>
       <StyledHeader
@@ -45,7 +55,7 @@ const Header = () => {
             >
               <Link to="/">Produtos</Link>
               <Link to="/dashboard-account">Pedidos</Link>
-              <Button>Sair</Button>
+              <Button onClick={logout}>Sair</Button>
             </ModalHeaderStyled>
           </ModalBase>
         ) : (
@@ -58,7 +68,7 @@ const Header = () => {
           <nav>
             <Link to="/">Produtos</Link>
             <Link to="/dashboard-account">Pedidos</Link>
-            <Button>Sair</Button>
+            <Button onClick={logout}>Sair</Button>
           </nav>
         ) : null}
       </StyledHeader>
