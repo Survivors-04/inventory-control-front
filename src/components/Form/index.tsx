@@ -7,7 +7,7 @@ interface IForm {
   accountSubmit: SubmitHandler<FieldValues>;
 }
 
-interface SubmitFunction {
+export interface SubmitFunction {
   email?: string;
   password?: string;
 }
