@@ -7,12 +7,12 @@ import {
   useEffect,
   useState,
 } from "react";
-
 import api from "../services/api";
 
 interface IUserProvider {
   children: ReactNode;
 }
+
 export interface IUserContext {
   user: iUser;
   setUser: React.Dispatch<React.SetStateAction<iUser>>;
@@ -22,11 +22,11 @@ export interface IUserContext {
 
 export interface iUser {
   id: number;
-  gold: number;
+  username: string;
+  cpf: string;
   email: string;
-  name: string;
-  password: string;
-  dateRoll: number;
+  telephone: string;
+  is_superuser: boolean;
 }
 
 export const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -38,15 +38,15 @@ const UserProvider = ({ children }: IUserProvider) => {
   //Exemplo de autenticação
   useEffect(() => {
     const loadUser = async () => {
-      const token = localStorage.getItem("@TOKEN");
-      const userID = localStorage.getItem("@USERID");
+      const token = window.localStorage.getItem("@TOKEN") as string;
+      const user_id = window.localStorage.getItem("@USERID");
 
       if (token) {
         try {
           api.defaults.headers.common.Authorization = `Bearer ${token}`;
           setIsLogged(true);
 
-          const { data } = await api.get(`/Users/${userID}`);
+          const { data } = await api.get(`/api/accounts/${user_id}/`);
 
           setUser(data);
         } catch (err) {
