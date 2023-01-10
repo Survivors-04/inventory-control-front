@@ -10,11 +10,11 @@ const MainRoutes = () => {
 
   return (
     <Routes location={location} key={location.pathname}>
-      <Route path="/" element={<Login />} />
       <Route
         path="/dashboard-account"
         element={<DashboardAccount formSubmit={() => {}} />}
       />
+      <Route path="/" element={<Login />} />
       <Route path="/dashboard-account/orders" element={<OrdersAccount />} />
       <Route path="/dashboard-manager" element={<ManagerViewPage />} />
       <Route path="/dashboard-manager/orders" element={<ManagerDashboard />} />

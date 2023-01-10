@@ -1,8 +1,9 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
 import robotLogo from "../../assets/imgs/bot.png";
+import { UserContext } from "../../context/UserContext";
 import { productFormSchema } from "../../validations/productForm.validations";
 import ModalBase from "../ModalBase";
 import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
@@ -15,12 +16,13 @@ interface SubmitFunction {
   name?: string;
   description?: string;
   price?: string;
-  amount?: string;
+  amount?: number;
   category?: string;
 }
 
 const Main = ({ formSubmit }: IForm) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const { user } = useContext(UserContext);
 
   const {
     register,
@@ -30,10 +32,6 @@ const Main = ({ formSubmit }: IForm) => {
     resolver: yupResolver(productFormSchema),
   });
 
-  const manager = {
-    name: "Manager",
-  };
-
   const products = [
     {
       id: 1,
@@ -41,6 +39,7 @@ const Main = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
     {
@@ -49,6 +48,7 @@ const Main = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
     {
@@ -57,6 +57,7 @@ const Main = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
   ];
@@ -66,13 +67,15 @@ const Main = ({ formSubmit }: IForm) => {
       <section>
         <img src={robotLogo} alt="robotImage" />
 
-        <p>Olá, {manager.name}</p>
+        <p>Olá, {user.username}</p>
       </section>
 
       <StyledUl>
         <div>
           <span>Produtos</span>
-          <input type="text" placeholder="Pesquisar produto" />
+          {products.length > 0 ? (
+            <input type="text" placeholder="Pesquisar produto" />
+          ) : null}
           <button
             onClick={() => {
               setIsOpenModal(true);
@@ -82,15 +85,20 @@ const Main = ({ formSubmit }: IForm) => {
           </button>
         </div>
 
-        {products.map((prod) => (
-          <li key={prod.id}>
-            <span>Nome: {prod.name}</span>
-            <span>Descrição: {prod.description}</span>
-            <span>Preço: {prod.price}</span>
-            <span>Categoria: {prod.category}</span>
-            <span>Registrado por: {prod.manager}</span>
-          </li>
-        ))}
+        {products.length > 0 ? (
+          products.map((prod) => (
+            <li key={prod.id}>
+              <span>Nome: {prod.name}</span>
+              <span>Descrição: {prod.description}</span>
+              <span>Preço: {prod.price}</span>
+              <span>Categoria: {prod.category}</span>
+              <span>Quantidade: {prod.amount}</span>
+              <span>Registrado por: {prod.manager}</span>
+            </li>
+          ))
+        ) : (
+          <p>Não há produtos cadastrados</p>
+        )}
       </StyledUl>
 
       {isOpenModal ? (
@@ -128,11 +136,11 @@ const Main = ({ formSubmit }: IForm) => {
               />
               <span>{errors.price?.message}</span>
 
-              <label htmlFor="amount">Amount</label>
+              <label htmlFor="amount">Quantidade</label>
               <input
-                type="text"
+                type="number"
                 {...register("amount")}
-                placeholder="Digite o amount"
+                placeholder="Digite a Quantidade"
               />
               <span>{errors.amount?.message}</span>
 
