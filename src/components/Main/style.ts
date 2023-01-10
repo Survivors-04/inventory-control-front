@@ -33,6 +33,14 @@ export const StyledUl = styled.ul`
   border-radius: 8px;
   max-width: 690px;
 
+  p {
+    color: #f1cf32;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+  }
+
   div {
     display: flex;
     align-items: center;
