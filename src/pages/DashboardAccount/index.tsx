@@ -20,7 +20,7 @@ interface IForm {
 
 interface SubmitFunction {
   id?: string;
-  qtd?: string;
+  amount?: string;
 }
 
 const DashboardAccount = ({ formSubmit }: IForm) => {
@@ -42,6 +42,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
     {
@@ -50,6 +51,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
     {
@@ -58,6 +60,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
       description: "camisa preta de qualidade da nike",
       price: 15.99,
       category: "Camisetas",
+      amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
   ];
@@ -84,6 +87,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
               <span>Descrição: {prod.description}</span>
               <span>Preço: {prod.price}</span>
               <span>Categoria: {prod.category}</span>
+              <span>Quantidade; {prod.amount}</span>
               <span>Registrado por: {prod.manager}</span>
               <StyledButton
                 onClick={() => {
@@ -117,10 +121,10 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
                 <label htmlFor="description">Digite a Quantidade</label>
                 <input
                   type="text"
-                  {...register("qtd")}
+                  {...register("amount")}
                   placeholder="Digite a Quantidade"
                 />
-                <span>{errors.qtd?.message}</span>
+                <span>{errors.amount?.message}</span>
                 <button>Enviar Pedido</button>
               </StyledForm>
             </StyledDiv>
