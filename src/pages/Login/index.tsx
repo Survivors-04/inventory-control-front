@@ -16,6 +16,7 @@ const Login = () => {
   const onSubmitFunction = (data: SubmitFunction) => {
     ApiLogin(data)
       .then((res) => {
+        window.localStorage.clear();
         window.localStorage.setItem("@TOKEN", res.data.access);
         const token = localStorage.getItem("@TOKEN") as string;
         const decoded = jwtDecode(token);
@@ -35,6 +36,7 @@ const Login = () => {
         console.log(err);
       });
   };
+
   return (
     <>
       <Header />
