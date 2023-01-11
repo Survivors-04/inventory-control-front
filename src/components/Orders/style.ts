@@ -34,6 +34,13 @@ export const StyledUl = styled.ul`
   max-width: 690px;
   max-height: 75vh;
   overflow: auto;
+  p {
+    color: #f1cf32;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 17px;
+  }
 
   div {
     display: flex;
