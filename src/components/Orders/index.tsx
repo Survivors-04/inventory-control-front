@@ -110,7 +110,8 @@ const Orders = () => {
         {ordersFiltered.length === 0 ? (
           <p>Não há pedidos com as informações fornecidas</p>
         ) : null}
-        
+
+        {orders.length === 0 ? <p>Não há pedidos cadastrados</p> : null}
       </StyledUl>
     </StyledMain>
   );
