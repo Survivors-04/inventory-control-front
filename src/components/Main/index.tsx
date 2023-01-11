@@ -1,9 +1,10 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { MdClose } from "react-icons/md";
 import robotLogo from "../../assets/imgs/bot.png";
 import { UserContext } from "../../context/UserContext";
+import api from "../../services/api";
 import { productFormSchema } from "../../validations/productForm.validations";
 import ModalBase from "../ModalBase";
 import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
@@ -20,9 +21,26 @@ interface SubmitFunction {
   category?: string;
 }
 
+export interface IProducts {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  amount: number;
+  category: string;
+  account_id: number;
+}
+
 const Main = ({ formSubmit }: IForm) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [productsList, setProductsList] = useState<IProducts[]>([]);
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    api.get("api/products/").then((res) => {
+      setProductsList(res.data);
+    });
+  }, []);
 
   const {
     register,
@@ -32,7 +50,7 @@ const Main = ({ formSubmit }: IForm) => {
     resolver: yupResolver(productFormSchema),
   });
 
-  const products = [
+  /*const products = [
     {
       id: 1,
       name: "Camisa preta",
@@ -60,7 +78,7 @@ const Main = ({ formSubmit }: IForm) => {
       amount: 15,
       manager: "enrique.barbosa@gmail.com",
     },
-  ];
+  ];**/
 
   return (
     <StyledMain>
@@ -73,7 +91,7 @@ const Main = ({ formSubmit }: IForm) => {
       <StyledUl>
         <div>
           <span>Produtos</span>
-          {products.length > 0 ? (
+          {productsList.length > 0 ? (
             <input type="text" placeholder="Pesquisar produto" />
           ) : null}
           <button
@@ -85,15 +103,15 @@ const Main = ({ formSubmit }: IForm) => {
           </button>
         </div>
 
-        {products.length > 0 ? (
-          products.map((prod) => (
+        {productsList.length > 0 ? (
+          productsList.map((prod) => (
             <li key={prod.id}>
               <span>Nome: {prod.name}</span>
               <span>Descrição: {prod.description}</span>
               <span>Preço: {prod.price}</span>
               <span>Categoria: {prod.category}</span>
               <span>Quantidade: {prod.amount}</span>
-              <span>Registrado por: {prod.manager}</span>
+              <span>Registrado por: {prod.account_id}</span>
             </li>
           ))
         ) : (
