@@ -32,7 +32,6 @@ export const StyledUl = styled.ul`
   margin-top: 16px;
   border-radius: 8px;
   max-width: 690px;
-  max-height: 75vh;
   overflow: auto;
   p {
     color: #f1cf32;
@@ -115,6 +114,20 @@ export const StyledUl = styled.ul`
 
   li:hover {
     background-color: #f1cf32;
+  }
+
+  button {
+    background-color: #f1cf32;
+    width: 120px;
+    height: 44px;
+    border-radius: 8px;
+    border: solid 1px #15222c;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+  button:hover {
+    background-color: #15222c;
+    color: #f1cf32;
   }
 `;
 

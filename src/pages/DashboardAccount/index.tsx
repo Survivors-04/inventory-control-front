@@ -10,23 +10,20 @@ import robotLogo from "../../assets/imgs/bot.png";
 import { useContext, useEffect, useState } from "react";
 import ModalBase from "../../components/ModalBase";
 import { MdClose } from "react-icons/md";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { requestFormSchema } from "../../validations/requestsForm.validations";
 import { UserContext } from "../../context/UserContext";
 import { IProducts } from "../../components/Main";
 import api from "../../services/api";
-
-interface IForm {
-  formSubmit: SubmitHandler<FieldValues>;
-}
+import AnimationPages from "../../components/AnimationPages";
 
 interface SubmitFunction {
-  id?: string;
+  product?: string[];
   amount?: string;
 }
 
-const DashboardAccount = ({ formSubmit }: IForm) => {
+const DashboardAccount = () => {
   const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
   const [productsList, setProductsList] = useState<IProducts[]>([]);
   const [productId, setProductId] = useState("");
@@ -85,6 +82,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm<SubmitFunction>({
     resolver: yupResolver(requestFormSchema),
   });
@@ -95,8 +93,22 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
     });
   }, []);
 
+  const formSubmit = (data: SubmitFunction) => {
+    data.product = [productId];
+    console.log(data);
+
+    api
+      .post("api/orders/", data)
+      .then((res) => {
+        setIsOpenModalRequests(false);
+        setValue("product", []);
+        setValue("amount", "");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
-    <>
+    <AnimationPages>
       <Header />
       <StyledMain>
         <section>
@@ -162,7 +174,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
                 <label htmlFor="input">Id do produto</label>
                 <input
                   type="text"
-                  {...register("id")}
+                  {...register("product")}
                   placeholder={productId as unknown as string}
                   disabled
                 />
@@ -179,7 +191,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
           </ModalBase>
         ) : null}
       </StyledMain>
-    </>
+    </AnimationPages>
   );
 };
 

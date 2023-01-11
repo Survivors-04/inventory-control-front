@@ -7,6 +7,7 @@ import { UserContext } from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import jwtDecode from "jwt-decode";
+import AnimationPages from "../../components/AnimationPages";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -47,13 +48,13 @@ const Login = () => {
   };
 
   return (
-    <>
+    <AnimationPages>
       <Header />
       <StyledDiv>
         <img src={storageLogo} alt="storageImage" />
         <Form accountSubmit={onSubmitFunction} />
       </StyledDiv>
-    </>
+    </AnimationPages>
   );
 };
 
