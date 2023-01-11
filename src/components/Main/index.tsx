@@ -168,7 +168,7 @@ const Main = () => {
               <li key={prod.id}>
                 <span>Nome: {prod.name}</span>
                 <span>Descrição: {prod.description}</span>
-                <span>Preço: R${prod.price}</span>
+                <span>Preço: R$ {prod.price}</span>
                 <span>Categoria: {prod.category}</span>
                 <span>Quantidade: {prod.amount}</span>
                 <span>Registrado por: {prod.account_id}</span>
