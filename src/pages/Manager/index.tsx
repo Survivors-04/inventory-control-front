@@ -6,7 +6,6 @@ const ManagerViewPage = () => {
   return (
     <AnimationPages>
       <Header />
-
       <Main />
     </AnimationPages>
   );
