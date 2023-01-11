@@ -30,6 +30,54 @@ const DashboardAccount = () => {
 
   const { user } = useContext(UserContext);
 
+  const [userInput, setUserInput] = useState("");
+  const [productsFiltered, setProductsFiltered] = useState<IProducts[]>([]);
+
+  useEffect(() => {
+    const filteredInput = (str: string) => {
+      let search = str
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+
+      const filter = productsList.filter((prod) => {
+        let id = prod.id
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        let name = prod.name
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        let description = prod.description
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        let price = prod.price
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        let category = prod.category
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        if (
+          id.includes(search) ||
+          name.includes(search) ||
+          description.includes(search) ||
+          price.includes(search) ||
+          category.includes(search)
+        ) {
+          return prod;
+        }
+      });
+
+      setProductsFiltered(filter);
+    };
+
+    filteredInput(userInput);
+  }, [userInput, productsList]);
+
   const {
     register,
     handleSubmit,
@@ -72,30 +120,45 @@ const DashboardAccount = () => {
         <StyledUl>
           <div>
             <span>Produtos</span>
-            <input type="text" placeholder="Pesquisar produto" />
+            <input
+              type="text"
+              placeholder="Pesquisar produto"
+              value={userInput}
+              onChange={(event) => {
+                setUserInput(event.target.value);
+              }}
+            />
           </div>
 
-          {productsList.length > 0 ? (
-            productsList.map((prod) => (
-              <li key={prod.id}>
-                <span>Nome: {prod.name}</span>
-                <span>Descrição: {prod.description}</span>
-                <span>Preço: {prod.price}</span>
-                <span>Categoria: {prod.category}</span>
-                <span>Quantidade; {prod.amount}</span>
-                <StyledButton
-                  onClick={() => {
-                    setProductId(prod.id);
-                    setIsOpenModalRequests(true);
-                  }}
-                >
-                  Fazer Pedido
-                </StyledButton>
-              </li>
-            ))
-          ) : (
+          {userInput.trim().length === 0
+            ? productsList.map((prod) => (
+                <li key={prod.id}>
+                  <span>Nome: {prod.name}</span>
+                  <span>Descrição: {prod.description}</span>
+                  <span>Preço: R${prod.price}</span>
+                  <span>Categoria: {prod.category}</span>
+                  <span>Quantidade: {prod.amount}</span>
+                  <span>Registrado por: {prod.account_id}</span>
+                </li>
+              ))
+            : productsFiltered.map((prod) => (
+                <li key={prod.id}>
+                  <span>Nome: {prod.name}</span>
+                  <span>Descrição: {prod.description}</span>
+                  <span>Preço: R${prod.price}</span>
+                  <span>Categoria: {prod.category}</span>
+                  <span>Quantidade: {prod.amount}</span>
+                  <span>Registrado por: {prod.account_id}</span>
+                </li>
+              ))}
+
+          {productsFiltered.length === 0 ? (
+            <p>Não há produtos com as informações fornecidas</p>
+          ) : null}
+
+          {productsList.length === 0 ? (
             <p>Não há produtos cadastrados</p>
-          )}
+          ) : null}
         </StyledUl>
 
         {isOpenModalRequests ? (
