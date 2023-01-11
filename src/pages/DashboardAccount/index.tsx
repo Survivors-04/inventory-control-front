@@ -7,12 +7,15 @@ import {
 } from "./style";
 import Header from "../../components/Header";
 import robotLogo from "../../assets/imgs/bot.png";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ModalBase from "../../components/ModalBase";
 import { MdClose } from "react-icons/md";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { requestFormSchema } from "../../validations/requestsForm.validations";
+import { UserContext } from "../../context/UserContext";
+import { IProducts } from "../../components/Main";
+import api from "../../services/api";
 
 interface IForm {
   formSubmit: SubmitHandler<FieldValues>;
@@ -25,7 +28,10 @@ interface SubmitFunction {
 
 const DashboardAccount = ({ formSubmit }: IForm) => {
   const [isOpenModalRequests, setIsOpenModalRequests] = useState(false);
-  const [productId, setProductId] = useState(0);
+  const [productsList, setProductsList] = useState<IProducts[]>([]);
+  const [productId, setProductId] = useState("");
+
+  const { user } = useContext(UserContext);
 
   const {
     register,
@@ -35,35 +41,11 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
     resolver: yupResolver(requestFormSchema),
   });
 
-  const products = [
-    {
-      id: 1,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-    {
-      id: 2,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-    {
-      id: 3,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-  ];
+  useEffect(() => {
+    api.get("api/products/").then((res) => {
+      setProductsList(res.data);
+    });
+  }, []);
 
   return (
     <>
@@ -72,7 +54,7 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
         <section>
           <img src={robotLogo} alt="robotImage" />
 
-          <p>Olá, manager.name</p>
+          <p>Olá, {user.username}</p>
         </section>
 
         <StyledUl>
@@ -81,24 +63,27 @@ const DashboardAccount = ({ formSubmit }: IForm) => {
             <input type="text" placeholder="Pesquisar produto" />
           </div>
 
-          {products.map((prod) => (
-            <li key={prod.id}>
-              <span>Nome: {prod.name}</span>
-              <span>Descrição: {prod.description}</span>
-              <span>Preço: {prod.price}</span>
-              <span>Categoria: {prod.category}</span>
-              <span>Quantidade; {prod.amount}</span>
-              <span>Registrado por: {prod.manager}</span>
-              <StyledButton
-                onClick={() => {
-                  setProductId(prod.id);
-                  setIsOpenModalRequests(true);
-                }}
-              >
-                Fazer Pedido
-              </StyledButton>
-            </li>
-          ))}
+          {productsList.length > 0 ? (
+            productsList.map((prod) => (
+              <li key={prod.id}>
+                <span>Nome: {prod.name}</span>
+                <span>Descrição: {prod.description}</span>
+                <span>Preço: {prod.price}</span>
+                <span>Categoria: {prod.category}</span>
+                <span>Quantidade; {prod.amount}</span>
+                <StyledButton
+                  onClick={() => {
+                    setProductId(prod.id);
+                    setIsOpenModalRequests(true);
+                  }}
+                >
+                  Fazer Pedido
+                </StyledButton>
+              </li>
+            ))
+          ) : (
+            <p>Não há produtos cadastrados</p>
+          )}
         </StyledUl>
 
         {isOpenModalRequests ? (

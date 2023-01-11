@@ -16,7 +16,7 @@ import { UserContext } from "../../context/UserContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { isLogged, setIsLogged } = useContext(UserContext);
+  const { user, isLogged, setIsLogged } = useContext(UserContext);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const logout = () => {
@@ -53,8 +53,17 @@ const Header = () => {
               exit={{ y: "-100vw", opacity: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <Link to="/">Produtos</Link>
-              <Link to="/dashboard-account">Pedidos</Link>
+              {user.is_superuser ? (
+                <>
+                  <Link to="/dashboard-manager">Produtos</Link>
+                  <Link to="/dashboard-manager/orders">Pedidos</Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/dashboard-account">Produtos</Link>
+                  <Link to="/dashboard-account/orders">Pedidos</Link>
+                </>
+              )}
               <Button onClick={logout}>Sair</Button>
             </ModalHeaderStyled>
           </ModalBase>
@@ -66,8 +75,17 @@ const Header = () => {
 
         {isLogged ? (
           <nav>
-            <Link to="/">Produtos</Link>
-            <Link to="/dashboard-account">Pedidos</Link>
+            {user.is_superuser ? (
+              <>
+                <Link to="/dashboard-manager">Produtos</Link>
+                <Link to="/dashboard-manager/orders">Pedidos</Link>
+              </>
+            ) : (
+              <>
+                <Link to="/dashboard-account">Produtos</Link>
+                <Link to="/dashboard-account/orders">Pedidos</Link>
+              </>
+            )}
             <Button onClick={logout}>Sair</Button>
           </nav>
         ) : null}

@@ -7,6 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 
 interface IUserProvider {
@@ -35,7 +36,8 @@ const UserProvider = ({ children }: IUserProvider) => {
   const [user, setUser] = useState<iUser>({} as iUser);
   const [isLogged, setIsLogged] = useState(false);
 
-  //Exemplo de autenticação
+  const navigate = useNavigate();
+
   useEffect(() => {
     const loadUser = async () => {
       const token = window.localStorage.getItem("@TOKEN") as string;
@@ -49,6 +51,11 @@ const UserProvider = ({ children }: IUserProvider) => {
           const { data } = await api.get(`/api/accounts/${user_id}/`);
 
           setUser(data);
+          if (data.is_superuser === false) {
+            navigate("/dashboard-account", { replace: true });
+          } else if (data.is_superuser === true) {
+            navigate("/dashboard-manager", { replace: true });
+          }
         } catch (err) {
           console.log(err);
         }
