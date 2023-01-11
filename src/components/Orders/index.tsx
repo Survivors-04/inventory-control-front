@@ -46,7 +46,7 @@ const Orders = () => {
     filteredInput(userInput);
   }, [userInput, orders]);
 
-  useEffect(() => {
+  const updateOrders = () => {
     api
       .get("api/orders/")
       .then((res) => {
@@ -56,7 +56,25 @@ const Orders = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [orders]);
+  };
+
+  useEffect(() => {
+    updateOrders();
+  }, []);
+
+  const markAsSent = (id: string) => {
+    api
+      .patch(`api/orders/${id}`, {
+        is_active: false,
+        is_sent: true,
+      })
+      .then((res) => {
+        updateOrders();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <StyledMain>
@@ -82,35 +100,48 @@ const Orders = () => {
         {userInput.trim().length === 0
           ? orders.map((prod) => (
               <li key={prod.id}>
-                <span>Pedido no Número: {prod.id}</span>
+                <span>Número do pedido: {prod.id}</span>
                 <span>Solicitante: {prod.account_id}</span>
                 <span>Data do pedido: {`${prod.created_at}`}</span>
                 <span>Produtos pedidos: {`${prod.product[0]}`}</span>
-                <span>Quantidade produtos: {prod.amount}</span>
-                <span>Preco total pedido: {prod.total_price}</span>
-                <span>Data envio: {`${prod.sent_at}`}</span>
-                <span>Enviado {prod.is_sent}</span>
-                <span>Enviado por: Em desenvolvimento</span>
+                <span>Quantidade de produtos: {prod.amount}</span>
+                <span>Preço total do pedido: {prod.total_price}</span>
+                <span>
+                  Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
+                </span>
+                <span>Enviado {prod.is_sent ? "Sim" : "Não"}</span>
+                <span>Enviado por: {user.username}</span>
+                {user.is_superuser === true && prod.is_sent ? null : (
+                  <button onClick={() => markAsSent(prod.id)}>
+                    Marcar como enviado
+                  </button>
+                )}
               </li>
             ))
           : ordersFiltered.map((prod) => (
               <li key={prod.id}>
-                <span>Pedido no Número: {prod.id}</span>
+                <span>Número do pedido: {prod.id}</span>
                 <span>Solicitante: {prod.account_id}</span>
                 <span>Data do pedido: {`${prod.created_at}`}</span>
                 <span>Produtos pedidos: {`${prod.product[0]}`}</span>
-                <span>Quantidade produtos: {prod.amount}</span>
-                <span>Preco total pedido: {prod.total_price}</span>
-                <span>Data envio: {`${prod.sent_at}`}</span>
-                <span>Enviado {prod.is_sent}</span>
-                <span>Enviado por: Em desenvolvimento</span>
+                <span>Quantidade de produtos: {prod.amount}</span>
+                <span>Preço total do pedido: {prod.total_price}</span>
+                <span>
+                  Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
+                </span>
+                <span>Enviado {prod.is_sent ? "Sim" : "Não"}</span>
+                <span>Enviado por: {user.username}</span>
+                {user.is_superuser === true && prod.is_sent ? null : (
+                  <button onClick={() => markAsSent(prod.id)}>
+                    Marcar como enviado
+                  </button>
+                )}
               </li>
             ))}
 
         {ordersFiltered.length === 0 ? (
           <p>Não há pedidos com as informações fornecidas</p>
         ) : null}
-        
       </StyledUl>
     </StyledMain>
   );
