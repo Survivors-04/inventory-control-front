@@ -55,9 +55,11 @@ const Orders = () => {
               <span>Data do pedido: {`${prod.created_at}`}</span>
               <span>Produtos pedidos: {`${prod.product[0]}`}</span>
               <span>Quantidade produtos: {prod.amount}</span>
-              <span>Preco total pedido: {prod.total_price}</span>
-              <span>Data envio: {`${prod.sent_at}`}</span>
-              <span>Enviado {prod.is_sent}</span>
+              <span>Preço total do pedido: {prod.total_price}</span>
+              <span>
+                Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
+              </span>
+              <span>Enviado: {prod.is_sent ? "Sim" : "Não"}</span>
               <span>Enviado por: Em desenvolvimento</span>
             </li>
           ))
