@@ -50,36 +50,6 @@ const Main = ({ formSubmit }: IForm) => {
     resolver: yupResolver(productFormSchema),
   });
 
-  /*const products = [
-    {
-      id: 1,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-    {
-      id: 2,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-    {
-      id: 3,
-      name: "Camisa preta",
-      description: "camisa preta de qualidade da nike",
-      price: 15.99,
-      category: "Camisetas",
-      amount: 15,
-      manager: "enrique.barbosa@gmail.com",
-    },
-  ];**/
-
   return (
     <StyledMain>
       <section>
