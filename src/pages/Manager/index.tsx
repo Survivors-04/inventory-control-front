@@ -6,7 +6,7 @@ const ManagerViewPage = () => {
     <>
       <Header />
 
-      <Main formSubmit={() => {}} />
+      <Main />
     </>
   );
 };
