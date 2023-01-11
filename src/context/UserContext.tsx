@@ -63,7 +63,7 @@ const UserProvider = ({ children }: IUserProvider) => {
     };
 
     loadUser();
-  }, []);
+  }, [navigate]);
 
   return (
     <UserContext.Provider value={{ user, isLogged, setUser, setIsLogged }}>
