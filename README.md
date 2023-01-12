@@ -1,16 +1,17 @@
 # Inventory Control
 
+# Logins para teste do site:
+
 ## Usuário is_superuser login:
 
-email: TesteSuperUser2@example.com
-senha: 1234
+- email: TesteSuperUser2@example.com
+- senha: 1234
 
 ## Usuário not_superuser login:
 
-email: Teste2NotIsSuperUser3@example.com
-senha: 123
+- email: Teste2NotIsSuperUser3@example.com
+- senha: 123
 
-# 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
