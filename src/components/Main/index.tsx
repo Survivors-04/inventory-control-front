@@ -13,7 +13,7 @@ import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
 interface SubmitFunction {
   name?: string;
   description?: string;
-  price?: string;
+  price?: number;
   amount?: number;
   category?: string;
 }
@@ -22,10 +22,9 @@ export interface IProducts {
   id: string;
   name: string;
   description: string;
-  price: string;
+  price: number;
   amount: number;
   category: ICategories;
-  account_id: number;
 }
 
 export interface ICategories {
@@ -41,6 +40,7 @@ const Main = () => {
 
   const updateProductList = () => {
     api.get("api/products/").then((res) => {
+      console.log(res.data);
       setProductsList(res.data);
     });
   };
@@ -63,6 +63,7 @@ const Main = () => {
   });
 
   const formSubmit = async (data: SubmitFunction) => {
+    console.log(data);
     api
       .post("api/products/", data)
       .then((res) => {
@@ -71,7 +72,7 @@ const Main = () => {
         setValue("name", "");
         setValue("description", "");
         setValue("amount", 0);
-        setValue("price", "");
+        setValue("price", 0);
         toastSuccess("Produto criado com sucesso!");
       })
       .catch((err) => console.log(err));
@@ -100,20 +101,10 @@ const Main = () => {
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
-        let price = prod.price
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
-        let category = prod.category.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
         if (
           id.includes(search) ||
           name.includes(search) ||
-          description.includes(search) ||
-          price.includes(search) ||
-          category.includes(search)
+          description.includes(search)
         ) {
           return prod;
         }
@@ -163,7 +154,6 @@ const Main = () => {
                 <span>Preço: R${prod.price}</span>
                 <span>Categoria: {prod.category.name}</span>
                 <span>Quantidade: {prod.amount}</span>
-                <span>Registrado por: {prod.account_id}</span>
               </li>
             ))
           : productsFiltered.map((prod) => (
@@ -173,7 +163,6 @@ const Main = () => {
                 <span>Preço: R$ {prod.price}</span>
                 <span>Categoria: {prod.category.name}</span>
                 <span>Quantidade: {prod.amount}</span>
-                <span>Registrado por: {prod.account_id}</span>
               </li>
             ))}
 
@@ -209,7 +198,7 @@ const Main = () => {
 
               <label htmlFor="price">Preço</label>
               <input
-                type="text"
+                type="number"
                 {...register("price")}
                 placeholder="Digite o preço"
               />
