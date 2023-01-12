@@ -1,4 +1,16 @@
-# Inventory Controll
+# Inventory Control
+
+## Usuário is_superuser login:
+
+email: TesteSuperUser2@example.com
+senha: 1234
+
+## Usuário not_superuser login:
+
+email: Teste2NotIsSuperUser3@example.com
+senha: 123
+
+# 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
