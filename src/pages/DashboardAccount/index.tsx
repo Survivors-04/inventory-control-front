@@ -17,6 +17,7 @@ import { UserContext } from "../../context/UserContext";
 import { IProducts } from "../../components/Main";
 import api from "../../services/api";
 import AnimationPages from "../../components/AnimationPages";
+import { toastError, toastSuccess } from "../../components/ToastfyConfig";
 
 interface SubmitFunction {
   product?: string[];
@@ -103,6 +104,7 @@ const DashboardAccount = () => {
         setIsOpenModalRequests(false);
         setValue("product", []);
         setValue("amount", "");
+        toastSuccess("Pedido concluído!");
       })
       .catch((err) => console.log(err));
   };
@@ -139,6 +141,16 @@ const DashboardAccount = () => {
                   <span>Categoria: {prod.category}</span>
                   <span>Quantidade: {prod.amount}</span>
                   <span>Registrado por: {prod.account_id}</span>
+                  {user.is_superuser === true ? null : (
+                    <StyledButton
+                      onClick={() => {
+                        setProductId(prod.id);
+                        setIsOpenModalRequests(true);
+                      }}
+                    >
+                      Fazer pedido
+                    </StyledButton>
+                  )}
                 </li>
               ))
             : productsFiltered.map((prod) => (
@@ -149,12 +161,18 @@ const DashboardAccount = () => {
                   <span>Categoria: {prod.category}</span>
                   <span>Quantidade: {prod.amount}</span>
                   <span>Registrado por: {prod.account_id}</span>
+                  {user.is_superuser === true ? null : (
+                    <StyledButton
+                      onClick={() => {
+                        setProductId(prod.id);
+                        setIsOpenModalRequests(true);
+                      }}
+                    >
+                      Fazer pedido
+                    </StyledButton>
+                  )}
                 </li>
               ))}
-
-          {productsFiltered.length === 0 ? (
-            <p>Não há produtos com as informações fornecidas</p>
-          ) : null}
 
           {productsList.length === 0 ? (
             <p>Não há produtos cadastrados</p>
