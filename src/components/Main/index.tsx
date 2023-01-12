@@ -7,6 +7,7 @@ import { UserContext } from "../../context/UserContext";
 import api from "../../services/api";
 import { productFormSchema } from "../../validations/productForm.validations";
 import ModalBase from "../ModalBase";
+import { toastSuccess } from "../ToastfyConfig";
 import { StyledDiv, StyledForm, StyledMain, StyledUl } from "./style";
 
 interface SubmitFunction {
@@ -71,6 +72,7 @@ const Main = () => {
         setValue("description", "");
         setValue("amount", 0);
         setValue("price", "");
+        toastSuccess("Produto criado com sucesso!");
       })
       .catch((err) => console.log(err));
   };
@@ -168,16 +170,12 @@ const Main = () => {
               <li key={prod.id}>
                 <span>Nome: {prod.name}</span>
                 <span>Descrição: {prod.description}</span>
-                <span>Preço: R${prod.price}</span>
+                <span>Preço: R$ {prod.price}</span>
                 <span>Categoria: {prod.category}</span>
                 <span>Quantidade: {prod.amount}</span>
                 <span>Registrado por: {prod.account_id}</span>
               </li>
             ))}
-
-        {productsFiltered.length === 0 ? (
-          <p>Não há produtos com as informações fornecidas</p>
-        ) : null}
 
         {productsList.length === 0 ? <p>Não há produtos cadastrados</p> : null}
       </StyledUl>

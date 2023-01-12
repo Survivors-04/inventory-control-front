@@ -109,9 +109,9 @@ const Orders = () => {
                 <span>
                   Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
                 </span>
-                <span>Enviado {prod.is_sent ? "Sim" : "Não"}</span>
-                <span>Enviado por: {user.username}</span>
-                {user.is_superuser === true && prod.is_sent ? null : (
+                <span>Enviado: {prod.is_sent ? "Sim" : "Não"}</span>
+                <span>Enviado por: {prod.account_id}</span>
+                {user.is_superuser === false ? null : (
                   <button onClick={() => markAsSent(prod.id)}>
                     Marcar como enviado
                   </button>
@@ -129,19 +129,15 @@ const Orders = () => {
                 <span>
                   Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
                 </span>
-                <span>Enviado {prod.is_sent ? "Sim" : "Não"}</span>
-                <span>Enviado por: {user.username}</span>
-                {user.is_superuser === true && prod.is_sent ? null : (
+                <span>Enviado: {prod.is_sent ? "Sim" : "Não"}</span>
+                <span>Enviado por: {prod.account_id}</span>
+                {user.is_superuser === false ? null : (
                   <button onClick={() => markAsSent(prod.id)}>
                     Marcar como enviado
                   </button>
                 )}
               </li>
             ))}
-
-        {ordersFiltered.length === 0 ? (
-          <p>Não há pedidos com as informações fornecidas</p>
-        ) : null}
         {orders.length === 0 ? <p>Não há pedidos cadastrados</p> : null}
       </StyledUl>
     </StyledMain>
