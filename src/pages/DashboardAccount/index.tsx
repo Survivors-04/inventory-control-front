@@ -21,7 +21,7 @@ import { toastSuccess } from "../../components/ToastfyConfig";
 
 interface SubmitFunction {
   product?: string[];
-  amount?: string;
+  amount?: number;
 }
 
 const DashboardAccount = () => {
@@ -54,20 +54,10 @@ const DashboardAccount = () => {
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
-        let price = prod.price
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
-        let category = prod.category.name
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase();
         if (
           id.includes(search) ||
           name.includes(search) ||
-          description.includes(search) ||
-          price.includes(search) ||
-          category.includes(search)
+          description.includes(search)
         ) {
           return prod;
         }
@@ -96,14 +86,14 @@ const DashboardAccount = () => {
 
   const formSubmit = (data: SubmitFunction) => {
     data.product = [productId];
-    console.log(setValue);
+    console.log(data);
 
     api
       .post("api/orders/", data)
       .then((res) => {
         setIsOpenModalRequests(false);
         setValue("product", []);
-        setValue("amount", "");
+        setValue("amount", 0);
         toastSuccess("Pedido concluído!");
       })
       .catch((err) => console.log(err));
@@ -140,7 +130,6 @@ const DashboardAccount = () => {
                   <span>Preço: R${prod.price}</span>
                   <span>Categoria: {prod.category.name}</span>
                   <span>Quantidade: {prod.amount}</span>
-                  <span>Registrado por: {prod.account_id}</span>
                   {user.is_superuser === true ? null : (
                     <StyledButton
                       onClick={() => {
@@ -160,7 +149,6 @@ const DashboardAccount = () => {
                   <span>Preço: R${prod.price}</span>
                   <span>Categoria: {prod.category.name}</span>
                   <span>Quantidade: {prod.amount}</span>
-                  <span>Registrado por: {prod.account_id}</span>
                   {user.is_superuser === true ? null : (
                     <StyledButton
                       onClick={() => {
@@ -198,7 +186,7 @@ const DashboardAccount = () => {
                 />
                 <label htmlFor="description">Digite a Quantidade</label>
                 <input
-                  type="text"
+                  type="number"
                   {...register("amount")}
                   placeholder="Digite a Quantidade"
                 />
