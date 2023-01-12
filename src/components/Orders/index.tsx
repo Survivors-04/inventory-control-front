@@ -82,7 +82,7 @@ const Orders = () => {
       <section>
         <img src={robotLogo} alt="robotImage" />
 
-        <p>teste, {user.username}</p>
+        <p>Olá, {user.username}</p>
       </section>
 
       <StyledUl>
