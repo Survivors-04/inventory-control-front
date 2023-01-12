@@ -12,6 +12,7 @@ interface IOrders {
   amount: number;
   sent_at: Date;
   is_sent: boolean;
+  name_dispatcher: string;
   account_id: number;
   total_price: number;
   product: IProducts[];
@@ -50,7 +51,6 @@ const Orders = () => {
     api
       .get("api/orders/")
       .then((res) => {
-        console.log(res);
         setOrders(res.data);
       })
       .catch((err) => {
@@ -64,11 +64,12 @@ const Orders = () => {
 
   const markAsSent = (id: string) => {
     api
-      .patch(`api/orders/${id}`, {
+      .patch(`api/orders/sendOrders/${id}/`, {
         is_active: false,
         is_sent: true,
       })
       .then((res) => {
+        console.log(res);
         updateOrders();
       })
       .catch((err) => {
@@ -110,7 +111,7 @@ const Orders = () => {
                   Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
                 </span>
                 <span>Enviado: {prod.is_sent ? "Sim" : "Não"}</span>
-                <span>Enviado por: {prod.account_id}</span>
+                <span>Enviado por: {prod.name_dispatcher}</span>
                 {user.is_superuser === false ? null : (
                   <button onClick={() => markAsSent(prod.id)}>
                     Marcar como enviado
@@ -130,7 +131,7 @@ const Orders = () => {
                   Data envio: {prod.sent_at ? `${prod.sent_at}` : "Não enviado"}
                 </span>
                 <span>Enviado: {prod.is_sent ? "Sim" : "Não"}</span>
-                <span>Enviado por: {prod.account_id}</span>
+                <span>Enviado por: {prod.name_dispatcher}</span>
                 {user.is_superuser === false ? null : (
                   <button onClick={() => markAsSent(prod.id)}>
                     Marcar como enviado

@@ -17,7 +17,7 @@ import { UserContext } from "../../context/UserContext";
 import { IProducts } from "../../components/Main";
 import api from "../../services/api";
 import AnimationPages from "../../components/AnimationPages";
-import { toastError, toastSuccess } from "../../components/ToastfyConfig";
+import { toastSuccess } from "../../components/ToastfyConfig";
 
 interface SubmitFunction {
   product?: string[];
@@ -58,7 +58,7 @@ const DashboardAccount = () => {
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
-        let category = prod.category
+        let category = prod.category.name
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
@@ -96,7 +96,7 @@ const DashboardAccount = () => {
 
   const formSubmit = (data: SubmitFunction) => {
     data.product = [productId];
-    console.log(data);
+    console.log(setValue);
 
     api
       .post("api/orders/", data)
@@ -138,7 +138,7 @@ const DashboardAccount = () => {
                   <span>Nome: {prod.name}</span>
                   <span>Descrição: {prod.description}</span>
                   <span>Preço: R${prod.price}</span>
-                  <span>Categoria: {prod.category}</span>
+                  <span>Categoria: {prod.category.name}</span>
                   <span>Quantidade: {prod.amount}</span>
                   <span>Registrado por: {prod.account_id}</span>
                   {user.is_superuser === true ? null : (
@@ -158,7 +158,7 @@ const DashboardAccount = () => {
                   <span>Nome: {prod.name}</span>
                   <span>Descrição: {prod.description}</span>
                   <span>Preço: R${prod.price}</span>
-                  <span>Categoria: {prod.category}</span>
+                  <span>Categoria: {prod.category.name}</span>
                   <span>Quantidade: {prod.amount}</span>
                   <span>Registrado por: {prod.account_id}</span>
                   {user.is_superuser === true ? null : (

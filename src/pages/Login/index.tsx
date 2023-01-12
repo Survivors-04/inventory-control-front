@@ -9,7 +9,6 @@ import api from "../../services/api";
 import jwtDecode from "jwt-decode";
 import AnimationPages from "../../components/AnimationPages";
 import { toastError } from "../../components/ToastfyConfig";
-import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
