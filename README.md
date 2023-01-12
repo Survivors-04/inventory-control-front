@@ -1,6 +1,6 @@
 # Inventory Control
 
-#3 Logins para teste do site:
+## Logins para teste do site:
 
 ### Usuário is_superuser login:
 
