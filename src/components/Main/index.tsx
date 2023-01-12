@@ -24,7 +24,7 @@ export interface IProducts {
   description: string;
   price: string;
   amount: number;
-  category: string;
+  category: ICategories;
   account_id: number;
 }
 
@@ -104,7 +104,7 @@ const Main = () => {
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
-        let category = prod.category
+        let category = prod.category.name
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "")
           .toLowerCase();
@@ -161,7 +161,7 @@ const Main = () => {
                 <span>Nome: {prod.name}</span>
                 <span>Descrição: {prod.description}</span>
                 <span>Preço: R${prod.price}</span>
-                <span>Categoria: {prod.category}</span>
+                <span>Categoria: {prod.category.name}</span>
                 <span>Quantidade: {prod.amount}</span>
                 <span>Registrado por: {prod.account_id}</span>
               </li>
@@ -171,7 +171,7 @@ const Main = () => {
                 <span>Nome: {prod.name}</span>
                 <span>Descrição: {prod.description}</span>
                 <span>Preço: R$ {prod.price}</span>
-                <span>Categoria: {prod.category}</span>
+                <span>Categoria: {prod.category.name}</span>
                 <span>Quantidade: {prod.amount}</span>
                 <span>Registrado por: {prod.account_id}</span>
               </li>
@@ -227,7 +227,9 @@ const Main = () => {
               <select id="" {...register("category")}>
                 {categoriesList.length > 0
                   ? categoriesList.map((category) => (
-                      <option value={category.id}>{category.name}</option>
+                      <option key={category.id} value={category.id}>
+                        {category.name}
+                      </option>
                     ))
                   : null}
               </select>
