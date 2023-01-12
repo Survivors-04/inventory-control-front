@@ -1,13 +1,13 @@
 # Inventory Control
 
-# Logins para teste do site:
+#3 Logins para teste do site:
 
-## Usuário is_superuser login:
+### Usuário is_superuser login:
 
 - email: TesteSuperUser2@example.com
 - senha: 1234
 
-## Usuário not_superuser login:
+### Usuário not_superuser login:
 
 - email: Teste2NotIsSuperUser3@example.com
 - senha: 123
