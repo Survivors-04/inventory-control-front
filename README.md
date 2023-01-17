@@ -3,7 +3,9 @@
 ## Tabela de Conteúdos 
 
 - [Visão Geral](#1-visão-geral)
-- [Início Rápido](#2-início-rápido)
+- [Tecnologias Utilizadas](#2-tecnologias-utilizadas)
+- [Bibliotecas e Hooks uitlizados](#3-bibliotecas-e-hooks-utilizados)
+- [Início Rápido](#4-início-rápido)
 
 ---
 
@@ -29,7 +31,27 @@ https://inventory-control-umber.vercel.app/
 
 ---
 
-## 2. Início Rápido
+## 2. Tecnologias utilizadas
+
+- ReactJS
+- TypeScript
+
+---
+
+## 3. Bibliotecas e Hooks utilizados
+
+- Axios
+- Styled-Components
+- React Router Dom
+- React Hook Form
+- React Icons
+- React Toastify
+- Yup
+- Framer Motion
+
+---
+
+## 4. Início Rápido
 
 [ Voltar para o topo ](#tabela-de-conteúdos)
 
