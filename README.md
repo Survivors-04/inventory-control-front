@@ -1,5 +1,11 @@
 # Inventory Control
 
+Este é um projeto voltado para o gerenciamento e organização de um estoque de produtos, onde será feito o controle de entrada e saída dos mesmos. Visando solucionar alguns dos problemas de logística de empresas de todos os tamanhos.
+
+### Visite o site:
+
+https://inventory-control-umber.vercel.app/
+
 ## Logins para teste do site:
 
 ### Usuário is_superuser login:
